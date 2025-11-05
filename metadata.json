@@ -1,0 +1,5 @@
+
+{
+  "name": "AI-Powered Aptis Practice",
+  "description": "An interactive web application for self-studying for the Aptis test. Users can input a topic, and the app uses the Gemini API to generate relevant multiple-choice questions with instant feedback."
+}
