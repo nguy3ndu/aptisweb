@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 
 // --- KIỂU DỮ LIỆU ---
 interface AnswerOption {
@@ -10,6 +10,13 @@ interface Question {
   question: string;
   options: AnswerOption[];
   explanation: string;
+}
+
+// Kiểu dữ liệu mới để lưu trạng thái của mỗi câu hỏi
+interface HistoryEntry {
+  selectedAnswer: AnswerOption | null;
+  isAnswerChecked: boolean;
+  shuffledOptions: AnswerOption[];
 }
 
 // --- SPINNER LOADING ---
@@ -42,10 +49,18 @@ export default function App() {
   const [activeTopic, setActiveTopic] = useState<number>(1);
   const [questionData, setQuestionData] = useState<Question | null>(null);
   const [shuffledOptions, setShuffledOptions] = useState<AnswerOption[]>([]);
-  const [selectedAnswer, setSelectedAnswer] = useState<AnswerOption | null>(null);
+  const [selectedAnswer, setSelectedAnswer] = useState<AnswerOption | null>(
+    null
+  );
   const [isAnswerChecked, setIsAnswerChecked] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [manualIndex, setManualIndex] = useState(0);
+
+  // --- STATE MỚI ---
+  // Lưu trữ trạng thái của từng câu hỏi (theo index)
+  const [answerHistory, setAnswerHistory] = useState<
+    Record<number, HistoryEntry>
+  >({});
 
   // --- 5 BỘ CÂU HỎI THEO CHỦ ĐỀ ---
   const topic1: Question[] = [
@@ -2312,37 +2327,117 @@ export default function App() {
     5: topic5,
   };
 
-  const currentQuestions = topics[activeTopic as keyof typeof topics];
+  const currentQuestions = topics[activeTopic as keyof typeof topics] || [];
 
   // --- TRỘN ĐÁP ÁN ---
   const shuffleArray = useCallback(<T,>(array: T[]): T[] => {
     return [...array].sort(() => Math.random() - 0.5);
   }, []);
 
-  // --- SINH CÂU HỎI MỚI ---
-  const handleGenerateQuestion = useCallback(() => {
-    setLoading(true);
-    setQuestionData(null);
-    setSelectedAnswer(null);
-    setIsAnswerChecked(false);
+  // --- HÀM TẢI CÂU HỎI (MỚI) ---
+  // Hàm này sẽ tải câu hỏi dựa trên index
+  // Nó sẽ kiểm tra xem câu hỏi này đã có trong history chưa
+  const loadQuestion = useCallback(
+    (index: number) => {
+      if (index < 0 || index >= currentQuestions.length) return; // Không tải nếu index ngoài phạm vi
 
-    const data = currentQuestions[manualIndex];
-    setManualIndex((prev) => (prev + 1) % currentQuestions.length);
-    setQuestionData(data);
-    setShuffledOptions(shuffleArray(data.options));
+      setLoading(true);
+      const data = currentQuestions[index];
+      if (!data) {
+        setLoading(false);
+        return;
+      }
 
-    setLoading(false);
-  }, [manualIndex, currentQuestions, shuffleArray]);
+      setQuestionData(data);
+      setManualIndex(index);
+
+      const historyEntry = answerHistory[index];
+
+      if (historyEntry) {
+        // --- Khôi phục từ history ---
+        setSelectedAnswer(historyEntry.selectedAnswer);
+        setIsAnswerChecked(historyEntry.isAnswerChecked);
+        setShuffledOptions(historyEntry.shuffledOptions);
+      } else {
+        // --- Lần đầu xem câu hỏi này ---
+        const newShuffledOptions = shuffleArray(data.options);
+        setSelectedAnswer(null);
+        setIsAnswerChecked(false);
+        setShuffledOptions(newShuffledOptions);
+
+        // Lưu trạng thái ban đầu vào history (chủ yếu để lưu thứ tự đáp án đã xáo trộn)
+        setAnswerHistory((prev) => ({
+          ...prev,
+          [index]: {
+            selectedAnswer: null,
+            isAnswerChecked: false,
+            shuffledOptions: newShuffledOptions,
+          },
+        }));
+      }
+
+      setLoading(false);
+    },
+    [currentQuestions, answerHistory, shuffleArray]
+  ); // Thêm dependency
+
+  // --- CẬP NHẬT HÀM CHỌN VÀ KIỂM TRA ĐÁP ÁN ---
+  // Cập nhật history bất cứ khi nào người dùng chọn hoặc kiểm tra
+  const updateHistory = (
+    index: number,
+    updates: Partial<HistoryEntry>
+  ) => {
+    setAnswerHistory((prev) => {
+      const currentEntry = prev[index] || {
+        selectedAnswer: null,
+        isAnswerChecked: false,
+        shuffledOptions: shuffledOptions, // Dùng shuffledOptions hiện tại
+      };
+      return {
+        ...prev,
+        [index]: { ...currentEntry, ...updates },
+      };
+    });
+  };
 
   const handleSelectAnswer = (option: AnswerOption) => {
     if (isAnswerChecked) return;
     setSelectedAnswer(option);
+    // Cập nhật history
+    updateHistory(manualIndex, { selectedAnswer: option, isAnswerChecked: false });
   };
 
   const handleCheckAnswer = () => {
     if (!selectedAnswer) return;
     setIsAnswerChecked(true);
+    // Cập nhật history
+    updateHistory(manualIndex, { isAnswerChecked: true });
   };
+
+  // --- HÀM ĐIỀU HƯỚNG MỚI ---
+  const handleNextOrStart = () => {
+    if (!questionData) {
+      // Trường hợp "Start"
+      loadQuestion(0);
+    } else {
+      // Trường hợp "Next"
+      loadQuestion(manualIndex + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    loadQuestion(manualIndex - 1);
+  };
+  
+  // Reset khi đổi topic
+  const handleChangeTopic = (topicId: number) => {
+    setActiveTopic(topicId);
+    setManualIndex(0);
+    setQuestionData(null);
+    setAnswerHistory({}); // Xóa history của topic cũ
+    setSelectedAnswer(null);
+    setIsAnswerChecked(false);
+  }
 
   const getButtonClasses = (option: AnswerOption) => {
     const baseClasses =
@@ -2370,53 +2465,70 @@ export default function App() {
 
         {/* --- TAB CHỦ ĐỀ --- */}
         <div className="flex justify-center gap-2 mb-6 flex-wrap">
-  {[
-    { id: 1, name: "Chủ đề thời gian" },
-    { id: 2, name: "Chủ đề về số, giá tiền" },
-    { id: 3, name: "Chủ đề về địa điểm" },
-    { id: 4, name: "Chủ đề về hành động" },
-    { id: 5, name: "Chủ đề khác" },
-  ].map((topic) => (
-    <button
-      key={topic.id}
-      onClick={() => {
-        setActiveTopic(topic.id);
-        setManualIndex(0);
-        setQuestionData(null);
-      }}
-      className={`px-4 py-2 rounded-md font-semibold ${
-        activeTopic === topic.id
-          ? "bg-blue-600 text-white"
-          : "bg-gray-200 text-black"
-      }`}
-    >
-      {topic.name}
-    </button>
-  ))}
-</div>
+          {[
+            { id: 1, name: "Chủ đề thời gian" },
+            { id: 2, name: "Chủ đề về số, giá tiền" },
+            { id: 3, name: "Chủ đề về địa điểm" },
+            { id: 4.0, name: "Chủ đề về hành động" }, // Sửa lỗi nhỏ: 4 -> 4.0
+            { id: 5, name: "Chủ đề khác" },
+          ].map((topic) => (
+            <button
+              key={topic.id}
+              onClick={() => handleChangeTopic(topic.id)} // Cập nhật hàm onClick
+              className={`px-4 py-2 rounded-md font-semibold ${
+                activeTopic === topic.id
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200 text-black"
+              }`}
+            >
+              {topic.name}
+            </button>
+          ))}
+        </div>
 
+        {/* --- NÚT ĐIỀU HƯỚNG (MỚI) --- */}
+        <div className="flex gap-4 mb-4">
+          <button
+            onClick={handlePrevious}
+            disabled={loading || manualIndex === 0 || !questionData}
+            className="flex-1 px-6 py-3 bg-gray-500 text-white font-semibold rounded-md hover:bg-gray-600 disabled:bg-gray-300 disabled:cursor-not-allowed"
+          >
+            Previous
+          </button>
+          <button
+            onClick={handleNextOrStart}
+            disabled={
+              loading ||
+              (questionData && manualIndex === currentQuestions.length - 1)
+            }
+            className="flex-1 px-6 py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 disabled:bg-blue-300 disabled:cursor-not-allowed"
+          >
+            <IconSparkles className="w-5 h-5 inline-block mr-2" />
+            {loading
+              ? "Loading..."
+              : questionData
+              ? manualIndex === currentQuestions.length - 1
+                ? "End of Topic"
+                : "Next Question"
+              : "Start Practice"}
+          </button>
+        </div>
 
         {/* --- NỘI DUNG CÂU HỎI --- */}
-        <button
-          onClick={handleGenerateQuestion}
-          disabled={loading}
-          className="w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-md mb-4 hover:bg-blue-700"
-        >
-          <IconSparkles className="w-5 h-5 inline-block mr-2" />
-          {loading
-            ? "Loading..."
-            : questionData
-            ? "Next Question"
-            : "Start Practice"}
-        </button>
-
-        <div className="bg-white p-6 rounded-lg shadow">
+        <div className="bg-white p-6 rounded-lg shadow min-h-[300px]">
           {loading && <Spinner />}
+
+          {!loading && !questionData && (
+             <div className="flex items-center justify-center h-full text-gray-500">
+                <p>Please "Start Practice" to begin.</p>
+             </div>
+          )}
 
           {questionData && !loading && (
             <div>
               <p className="text-xl font-bold mb-4 text-black">
-                {questionData.question}
+                {/* Thêm số thứ tự câu hỏi */}
+                {`Câu ${manualIndex + 1}/${currentQuestions.length}: ${questionData.question}`}
               </p>
               <div className="space-y-3">
                 {shuffledOptions.map((opt) => (
@@ -2434,7 +2546,7 @@ export default function App() {
                 <button
                   onClick={handleCheckAnswer}
                   disabled={!selectedAnswer}
-                  className="w-full mt-5 bg-green-600 text-white py-2 rounded-md hover:bg-green-700"
+                  className="w-full mt-5 bg-green-600 text-white py-2 rounded-md hover:bg-green-700 disabled:bg-green-300 disabled:cursor-not-allowed"
                 >
                   Check Answer
                 </button>

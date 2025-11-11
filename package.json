@@ -1,4 +1,5 @@
 {
+  "homepage": "https://github.com/nguy3ndu/aptisweb",
   "name": "ai-powered-aptis-practice",
   "private": true,
   "version": "0.0.0",
@@ -6,7 +7,10 @@
   "scripts": {
     "dev": "vite --open",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+
   },
   "dependencies": {
     "@google/genai": "^1.28.0",
@@ -16,6 +20,7 @@
   "devDependencies": {
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
+    "gh-pages": "^6.3.0",
     "typescript": "~5.8.2",
     "vite": "^6.4.1"
   }
