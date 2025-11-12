@@ -12,11 +12,32 @@ interface Question {
   explanation: string;
 }
 
-// Kiểu dữ liệu mới để lưu trạng thái của mỗi câu hỏi
-interface HistoryEntry {
+// Cấu trúc cho dạng Q16-17
+interface MultiQuestionSet {
+  id: string;
+  topic: string;
+  audioSrc?: string; // (Tùy chọn) file âm thanh
+  questionGroup16: {
+    question16_1: Question;
+    question16_2: Question;
+  };
+  questionGroup17: {
+    question17_1: Question;
+    question17_2: Question;
+  };
+}
+
+// Kiểu dữ liệu History cho câu hỏi đơn
+interface SimpleHistoryEntry {
   selectedAnswer: AnswerOption | null;
   isAnswerChecked: boolean;
   shuffledOptions: AnswerOption[];
+}
+
+// Kiểu dữ liệu History cho Q16-17
+interface MultiHistoryEntry {
+  selectedAnswers: Record<string, AnswerOption | null>; // { q16_1: ..., q16_2: ... }
+  isAnswerChecked: boolean;
 }
 
 // --- SPINNER LOADING ---
@@ -46,21 +67,37 @@ const IconSparkles: React.FC<{ className?: string }> = ({ className }) => (
 
 // --- ỨNG DỤNG CHÍNH ---
 export default function App() {
-  const [activeTopic, setActiveTopic] = useState<number>(1);
+  // Thay đổi activeTopic từ number sang string để linh hoạt
+  const [activeTopic, setActiveTopic] = useState<string>("topic1");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [manualIndex, setManualIndex] = useState(0);
+
+  // --- State cho Dạng Câu hỏi Đơn ---
   const [questionData, setQuestionData] = useState<Question | null>(null);
   const [shuffledOptions, setShuffledOptions] = useState<AnswerOption[]>([]);
   const [selectedAnswer, setSelectedAnswer] = useState<AnswerOption | null>(
     null
   );
   const [isAnswerChecked, setIsAnswerChecked] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [manualIndex, setManualIndex] = useState(0);
-
-  // --- STATE MỚI ---
-  // Lưu trữ trạng thái của từng câu hỏi (theo index)
-  const [answerHistory, setAnswerHistory] = useState<
-    Record<number, HistoryEntry>
+  const [simpleHistory, setSimpleHistory] = useState<
+    Record<number, SimpleHistoryEntry>
   >({});
+
+  // --- State cho Dạng Q16-17 ---
+  const [currentSet, setCurrentSet] = useState<MultiQuestionSet | null>(null);
+  const [multiSelectedAnswers, setMultiSelectedAnswers] = useState<
+    Record<string, AnswerOption | null>
+  >({});
+  const [isMultiAnswerChecked, setIsMultiAnswerChecked] =
+    useState<boolean>(false);
+  const [multiHistory, setMultiHistory] = useState<
+    Record<number, MultiHistoryEntry>
+  >({});
+
+  // --- TRỘN ĐÁP ÁN ---
+  const shuffleArray = useCallback(<T,>(array: T[]): T[] => {
+    return [...array].sort(() => Math.random() - 0.5);
+  }, []);
 
   // --- 5 BỘ CÂU HỎI THEO CHỦ ĐỀ ---
   const topic1: Question[] = [
@@ -409,21 +446,6 @@ export default function App() {
   },
   //=========================================================================================================================
   ];
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   //=======================================================================câu hỏi về số, giá tiền===================================
   const topic2: Question[] = [
   {
@@ -671,13 +693,6 @@ export default function App() {
   }
 
   ];
-
-
-
-
-
-
-
 //===============================================================================================chủ đề câu hỏi địa điểm===============================
 
   const topic3: Question[] = [
@@ -1093,9 +1108,6 @@ export default function App() {
 
 
   ];
-
-
-
 //====================================================================================câu hỏi về hành động=============================
   const topic4: Question[] = [
   {
@@ -1540,13 +1552,7 @@ export default function App() {
     "explanation": "Anh ấy đã làm gì vào buổi sáng?"
   }
   ];
-
-
-
-
-
 //=======================================================================================chủ đề khác=====================================
-
   const topic5: Question[] = [
   {
     "question": "1.A woman is talking about her job. How is being a writer different from other jobs?",
@@ -2319,142 +2325,1554 @@ export default function App() {
   
   ];
 
-  const topics = {
-    1: topic1,
-    2: topic2,
-    3: topic3,
-    4: topic4,
-    5: topic5,
+
+
+  // DỮ LIỆU MỚI CHO Q16-17
+  const topicQ16_17: MultiQuestionSet[] = [
+  {
+    id: "de-1",
+    topic: "",
+    // audioSrc: "/audio/de-1.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "2 famous writer",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "They have both been overlooked by academics.", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "2 famous writer",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+          { text: "The meaning of their work is not always easily identified", isCorrect: true },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "2 famous writer phiên bản 2",
+        options: [
+          { text: "They both make references to each other in their work", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "2 famous writer phiên bản 2",
+        options: [
+          { text: "The meaning of their work is not always easily identified", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-2",
+    topic: "",
+    // audioSrc: "/audio/de-2.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "A new guidebook",
+        options: [
+          { text: "It creates an adventure.", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "A new guidebook",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "It is only suitable for particular generations", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "Writer's block",
+        options: [
+          { text: "Create dedicated periods for writing", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "Writer's block",
+        options: [
+          { text: "Refuse to seek advice of others", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  // Bắt đầu template cho de-3 đến de-29
+  {
+    id: "de-3",
+    topic: "",
+    // audioSrc: "/audio/de-3.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "A new novel of a famous writer",
+        options: [
+          { text: "It is quite different from his earlier works", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "A new novel of a famous writer",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "He should listen to critics before writing his next work", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "A new book about science",
+        options: [
+          { text: "It is exciting to read", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "A new book about science",
+        options: [
+          { text: "It has been written for a general audience", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-4",
+    topic: "",
+    // audioSrc: "/audio/de-4.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "Script production",
+        options: [
+          { text: "The characters' background are not adequately explored", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "Script production",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "The new industry demands are negatively influencing script production", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "The script of the new series",
+        options: [
+          { text: "The dialogues seem unrealistic", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "The script of the new series",
+        options: [
+          { text: "The new industry demand is negatively influencing script production", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-5",
+    topic: "",
+    // audioSrc: "/audio/de-5.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "Life after university",
+        options: [
+          { text: "They are likely to be more flexible and open-minded", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "Life after university",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "They are becoming more competitive", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "Nói về sports ở trường học",
+        options: [
+          { text: "They help ... (health promotion)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "Nói về sports ở trường học",
+        options: [
+          { text: "It provides balance", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-6",
+    topic: "",
+    // audioSrc: "/audio/de-6.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "Sport – thể thao",
+        options: [
+          { text: "They can cause harmful effects", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "Sport – thể thao",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "Provides them with a balance in their lives", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+
+
+    //========================================================  ĐẾN ĐÂY RỒIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+    questionGroup17: {
+      question17_1: {
+        question: "A musician's life",
+        options: [
+          { text: "He will probably retire from singing professionally", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "A musician's life",
+        options: [
+          { text: "He could have been more successful", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-7",
+    topic: "",
+    // audioSrc: "/audio/de-7.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "Professionalism at work",
+        options: [
+          { text: "To maintain positive attitude", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "Professionalism at work",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "Our definition of it is changing", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "Nói về work from home",
+        options: [
+          { text: "It wasn't as good as she had expected", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "Nói về work from home",
+        options: [
+          { text: "It depends on your situation and personality", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-8",
+    topic: "",
+    // audioSrc: "/audio/de-8.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "TV series",
+        options: [
+          { text: "It caught the audience's attention from the start", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "TV series",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "It helps to reach new customers ", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "Advertising and sponsoring",
+        options: [
+          { text: "Series are damaged by overexposure", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "Advertising and sponsoring",
+        options: [
+          { text: "They can generate negative publicity for the sport", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-9",
+    topic: "",
+    // audioSrc: "/audio/de-9.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "Topic cctv/ security cameras",
+        options: [
+          { text: "Employees probably worry unnecessarily", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "Topic cctv/ security cameras",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "People should feel reassured about their presence", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "Making plans",
+        options: [
+          { text: "It allows you to be more flexible.", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "Making plans",
+        options: [
+          { text: "It can prevent you from making mistakes", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-10",
+    topic: "",
+    // audioSrc: "/audio/de-10.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "A promotion campaign for a product",
+        options: [
+          { text: "They use exaggerated claims", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "A promotion campaign for a product",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "It costs too much to make to be profitable", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "New transport plan",
+        options: [
+          { text: "It doesn't provide enough alternatives to driving", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "New transport plan",
+        options: [
+          { text: "It is likely to meet resistance from local communities.", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-11",
+    topic: "",
+    // audioSrc: "/audio/de-11.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "Nói về restaurant",
+        options: [
+          { text: "The standard of service wasn't good", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "Nói về restaurant",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "They need to make customers feel valued and welcome", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "Managing financial spending",
+        options: [
+          { text: "Organizing their resources more effectively", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "Managing financial spending",
+        options: [
+          { text: "Seek advice from someone who have experience", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-12",
+    topic: "",
+    // audioSrc: "/audio/de-12.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: " A research into happiness",
+        options: [
+          { text: "It has not been accurately reported by the media", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: " A research into happiness",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "The research is unlikely to find a conclusive answer", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "The importance of sleep",
+        options: [
+          { text: "Blocking out noise and light is a keyof", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "The importance of sleep",
+        options: [
+          { text: "The media overemphasizes the subject", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-13",
+    topic: "",
+    // audioSrc: "/audio/de-13.mp3", // (TùY chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: " Criticism of the new novel",
+        options: [
+          { text: "The characters were interesting", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: " Criticism of the new novel",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "It will establish the author's popularity", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "New novel",
+        options: [
+          { text: "They are difficult to relate to", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "New novel",
+        options: [
+          { text: "It lacks originality", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-14",
+    topic: "",
+    // audioSrc: "/audio/de-14.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "A new book",
+        options: [
+          { text: "The plot was very strong", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "A new book",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "It is very similar to the author's other books", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "A book about a life of a scientist",
+        options: [
+          { text: "It uses simple language to describe complex ideas", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "A book about a life of a scientist",
+        options: [
+          { text: "It is similar to the previous book about the scientist", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-15",
+    topic: "",
+    // audioSrc: "/audio/de-15.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "A break from studying",
+        options: [
+          { text: "He wasn't ready to start higher education", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "A break from studying",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "How to be more independent", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "Television series",
+        options: [
+          { text: "It has the consistent quality throughout", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "Television series",
+        options: [
+          { text: "Viewer habits influence the way that series are made", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-16",
+    topic: "",
+    // audioSrc: "/audio/de-16.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "(Chủ đề 1 của Đề 16)",
+        options: [
+          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "(Chủ đề 1 của Đề 16)",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "(Chủ đề 2 của Đề 16)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "(Chủ đề 2 của Đề 16)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-17",
+    topic: "",
+    // audioSrc: "/audio/de-17.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "(Chủ đề 1 của Đề 17)",
+        options: [
+          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "(Chủ đề 1 của Đề 17)",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "(Chủ đề 2 của Đề 17)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "(Chủ đề 2 của Đề 17)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-18",
+    topic: "",
+    // audioSrc: "/audio/de-18.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "(Chủ đề 1 của Đề 18)",
+        options: [
+          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "(Chủ đề 1 của Đề 18)",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "(Chủ đề 2 của Đề 18)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "(Chủ đề 2 của Đề 18)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-19",
+    topic: "",
+    // audioSrc: "/audio/de-19.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "(Chủ đề 1 của Đề 19)",
+        options: [
+          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "(Chủ đề 1 của Đề 19)",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "(Chủ đề 2 của Đề 19)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "(Chủ đề 2 của Đề 19)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-20",
+    topic: "",
+    // audioSrc: "/audio/de-20.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "(Chủ đề 1 của Đề 20)",
+        options: [
+          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "(Chủ đề 1 của Đề 20)",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "(Chủ đề 2 của Đề 20)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "(Chủ đề 2 của Đề 20)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-21",
+    topic: "",
+    // audioSrc: "/audio/de-21.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "(Chủ đề 1 của Đề 21)",
+        options: [
+          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "(Chủ đề 1 của Đề 21)",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "(Chủ đề 2 của Đề 21)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "(Chủ đề 2 của Đề 21)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-22",
+    topic: "",
+    // audioSrc: "/audio/de-22.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "(Chủ đề 1 của Đề 22)",
+        options: [
+          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "(Chủ đề 1 của Đề 22)",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "(Chủ đề 2 của Đề 22)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "(Chủ đề 2 của Đề 22)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-23",
+    topic: "",
+    // audioSrc: "/audio/de-23.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "(Chủ đề 1 của Đề 23)",
+        options: [
+          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "(Chủ đề 1 của Đề 23)",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "(Chủ đề 2 của Đề 23)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "(Chủ đề 2 của Đề 23)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-24",
+    topic: "",
+    // audioSrc: "/audio/de-24.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "(Chủ đề 1 của Đề 24)",
+        options: [
+          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "(Chủ đề 1 của Đề 24)",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "(Chủ đề 2 của Đề 24)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "(Chủ đề 2 của Đề 24)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-25",
+    topic: "",
+    // audioSrc: "/audio/de-25.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "(Chủ đề 1 của Đề 25)",
+        options: [
+          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "(Chủ đề 1 của Đề 25)",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "(Chủ đề 2 của Đề 25)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "(Chủ đề 2 của Đề 25)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-26",
+    topic: "",
+    // audioSrc: "/audio/de-26.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "(Chủ đề 1 của Đề 26)",
+        options: [
+          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "(Chủ đề 1 của Đề 26)",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "(Chủ đề 2 của Đề 26)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "(Chủ đề 2 của Đề 26)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-27",
+    topic: "",
+    // audioSrc: "/audio/de-27.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "(Chủ đề 1 của Đề 27)",
+        options: [
+          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "(Chủ đề 1 của Đề 27)",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "(Chủ đề 2 của Đề 27)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "(Chủ đề 2 của Đề 27)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-28",
+    topic: "",
+    // audioSrc: "/audio/de-28.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "(Chủ đề 1 của Đề 28)",
+        options: [
+          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "(Chủ đề 1 của Đề 28)",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "(Chủ đề 2 của Đề 28)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "(Chủ đề 2 của Đề 28)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  },
+  {
+    id: "de-29",
+    topic: "",
+    // audioSrc: "/audio/de-29.mp3", // (Tùy chọn)
+    
+    questionGroup16: {
+      question16_1: {
+        question: "(Chủ đề 1 của Đề 29)",
+        options: [
+          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question16_2: {
+        question: "(Chủ đề 1 của Đề 29)",
+        options: [
+          { text: "", isCorrect: false },
+          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    },
+    questionGroup17: {
+      question17_1: {
+        question: "(Chủ đề 2 của Đề 29)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      },
+      question17_2: {
+        question: "(Chủ đề 2 của Đề 29)",
+        options: [
+          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+        explanation: ""
+      }
+    }
+  }
+];
+
+  const topics: Record<string, Question[] | MultiQuestionSet[]> = {
+    topic1: topic1,
+    topic2: topic2,
+    topic3: topic3,
+    topic4: topic4,
+    topic5: topic5,
+    "q16-17": topicQ16_17, // Thêm topic mới
   };
 
-  const currentQuestions = topics[activeTopic as keyof typeof topics] || [];
 
-  // --- TRỘN ĐÁP ÁN ---
-  const shuffleArray = useCallback(<T,>(array: T[]): T[] => {
-    return [...array].sort(() => Math.random() - 0.5);
-  }, []);
 
-  // --- HÀM TẢI CÂU HỎI (MỚI) ---
-  // Hàm này sẽ tải câu hỏi dựa trên index
-  // Nó sẽ kiểm tra xem câu hỏi này đã có trong history chưa
-  const loadQuestion = useCallback(
+
+
+  const currentDataSet = topics[activeTopic as keyof typeof topics] || [];
+  const isMultiQuestionMode = activeTopic === "q16-17";
+
+  // --- HÀM TẢI CÂU HỎI (CHO CẢ 2 CHẾ ĐỘ) ---
+  const loadQuestionByIndex = useCallback(
     (index: number) => {
-      if (index < 0 || index >= currentQuestions.length) return; // Không tải nếu index ngoài phạm vi
+      if (index < 0 || index >= currentDataSet.length) return;
 
       setLoading(true);
-      const data = currentQuestions[index];
-      if (!data) {
-        setLoading(false);
-        return;
-      }
-
-      setQuestionData(data);
       setManualIndex(index);
+      const data = currentDataSet[index];
 
-      const historyEntry = answerHistory[index];
+      if (isMultiQuestionMode) {
+        // --- Tải Dạng Q16-17 ---
+        const setData = data as MultiQuestionSet;
+        setCurrentSet(setData);
+        setQuestionData(null); // Xóa dữ liệu cũ
 
-      if (historyEntry) {
-        // --- Khôi phục từ history ---
-        setSelectedAnswer(historyEntry.selectedAnswer);
-        setIsAnswerChecked(historyEntry.isAnswerChecked);
-        setShuffledOptions(historyEntry.shuffledOptions);
+        const historyEntry = multiHistory[index];
+        if (historyEntry) {
+          setMultiSelectedAnswers(historyEntry.selectedAnswers);
+          setIsMultiAnswerChecked(historyEntry.isAnswerChecked);
+        } else {
+          setMultiSelectedAnswers({});
+          setIsMultiAnswerChecked(false);
+          // (Không cần shuffle, vì các câu hỏi con đã cố định)
+        }
       } else {
-        // --- Lần đầu xem câu hỏi này ---
-        const newShuffledOptions = shuffleArray(data.options);
-        setSelectedAnswer(null);
-        setIsAnswerChecked(false);
-        setShuffledOptions(newShuffledOptions);
+        // --- Tải Dạng Câu Đơn ---
+        const questionData = data as Question;
+        setQuestionData(questionData);
+        setCurrentSet(null); // Xóa dữ liệu cũ
 
-        // Lưu trạng thái ban đầu vào history (chủ yếu để lưu thứ tự đáp án đã xáo trộn)
-        setAnswerHistory((prev) => ({
-          ...prev,
-          [index]: {
-            selectedAnswer: null,
-            isAnswerChecked: false,
-            shuffledOptions: newShuffledOptions,
-          },
-        }));
+        const historyEntry = simpleHistory[index];
+        if (historyEntry) {
+          setSelectedAnswer(historyEntry.selectedAnswer);
+          setIsAnswerChecked(historyEntry.isAnswerChecked);
+          setShuffledOptions(historyEntry.shuffledOptions);
+        } else {
+          const newShuffledOptions = shuffleArray(questionData.options);
+          setSelectedAnswer(null);
+          setIsAnswerChecked(false);
+          setShuffledOptions(newShuffledOptions);
+          setSimpleHistory((prev) => ({
+            ...prev,
+            [index]: {
+              selectedAnswer: null,
+              isAnswerChecked: false,
+              shuffledOptions: newShuffledOptions,
+            },
+          }));
+        }
       }
-
       setLoading(false);
     },
-    [currentQuestions, answerHistory, shuffleArray]
-  ); // Thêm dependency
+    [currentDataSet, isMultiQuestionMode, simpleHistory, multiHistory, shuffleArray]
+  );
 
-  // --- CẬP NHẬT HÀM CHỌN VÀ KIỂM TRA ĐÁP ÁN ---
-  // Cập nhật history bất cứ khi nào người dùng chọn hoặc kiểm tra
-  const updateHistory = (
-    index: number,
-    updates: Partial<HistoryEntry>
-  ) => {
-    setAnswerHistory((prev) => {
-      const currentEntry = prev[index] || {
-        selectedAnswer: null,
-        isAnswerChecked: false,
-        shuffledOptions: shuffledOptions, // Dùng shuffledOptions hiện tại
-      };
-      return {
-        ...prev,
-        [index]: { ...currentEntry, ...updates },
-      };
-    });
-  };
-
+  // --- HÀM XỬ LÝ CHO CÂU ĐƠN ---
   const handleSelectAnswer = (option: AnswerOption) => {
     if (isAnswerChecked) return;
     setSelectedAnswer(option);
-    // Cập nhật history
-    updateHistory(manualIndex, { selectedAnswer: option, isAnswerChecked: false });
+    setSimpleHistory((prev) => ({
+      ...prev,
+      [manualIndex]: { ...prev[manualIndex], selectedAnswer: option },
+    }));
   };
 
   const handleCheckAnswer = () => {
     if (!selectedAnswer) return;
     setIsAnswerChecked(true);
-    // Cập nhật history
-    updateHistory(manualIndex, { isAnswerChecked: true });
+    setSimpleHistory((prev) => ({
+      ...prev,
+      [manualIndex]: { ...prev[manualIndex], isAnswerChecked: true },
+    }));
   };
 
-  // --- HÀM ĐIỀU HƯỚNG MỚI ---
+  // --- HÀM XỬ LÝ CHO Q16-17 ---
+  const handleSelectMultiAnswer = (
+    questionKey: string,
+    option: AnswerOption
+  ) => {
+    if (isMultiAnswerChecked) return;
+    const newSelectedAnswers = {
+      ...multiSelectedAnswers,
+      [questionKey]: option,
+    };
+    setMultiSelectedAnswers(newSelectedAnswers);
+    setMultiHistory((prev) => ({
+      ...prev,
+      [manualIndex]: {
+        ...prev[manualIndex],
+        selectedAnswers: newSelectedAnswers,
+        isAnswerChecked: false,
+      },
+    }));
+  };
+
+  const handleCheckMultiAnswer = () => {
+    setIsMultiAnswerChecked(true);
+    setMultiHistory((prev) => ({
+      ...prev,
+      [manualIndex]: {
+        ...prev[manualIndex],
+        isAnswerChecked: true,
+      },
+    }));
+  };
+
+  // --- HÀM ĐIỀU HƯỚNG ---
   const handleNextOrStart = () => {
-    if (!questionData) {
-      // Trường hợp "Start"
-      loadQuestion(0);
-    } else {
-      // Trường hợp "Next"
-      loadQuestion(manualIndex + 1);
+    if (!questionData && !currentSet) { // Trường hợp "Start"
+      loadQuestionByIndex(0);
+    } else { // Trường hợp "Next"
+      loadQuestionByIndex(manualIndex + 1);
     }
   };
 
   const handlePrevious = () => {
-    loadQuestion(manualIndex - 1);
+    loadQuestionByIndex(manualIndex - 1);
   };
-  
-  // Reset khi đổi topic
-  const handleChangeTopic = (topicId: number) => {
+
+  const handleChangeTopic = (topicId: string) => {
     setActiveTopic(topicId);
     setManualIndex(0);
     setQuestionData(null);
-    setAnswerHistory({}); // Xóa history của topic cũ
+    setCurrentSet(null);
     setSelectedAnswer(null);
     setIsAnswerChecked(false);
-  }
+    setMultiSelectedAnswers({});
+    setIsMultiAnswerChecked(false);
+    // Không cần xóa history, để người dùng có thể quay lại
+  };
 
-  const getButtonClasses = (option: AnswerOption) => {
+  // --- Hàm render cho các nút đáp án (dùng chung) ---
+  const getButtonClasses = (
+    option: AnswerOption,
+    selectedOption: AnswerOption | null,
+    isChecked: boolean
+  ) => {
     const baseClasses =
       "w-full text-left p-4 rounded-lg border-2 transition-all duration-300 font-medium text-lg";
-    if (isAnswerChecked) {
+    if (isChecked) {
       if (option.isCorrect)
         return `${baseClasses} bg-green-100 border-green-500 text-green-800`;
-      if (option.text === selectedAnswer?.text)
+      if (option.text === selectedOption?.text)
         return `${baseClasses} bg-red-100 border-red-500 text-red-800`;
       return `${baseClasses} bg-gray-100 border-gray-300 text-gray-600`;
     }
-    if (option.text === selectedAnswer?.text)
+    if (option.text === selectedOption?.text)
       return `${baseClasses} bg-blue-500 border-blue-600 text-white`;
     return `${baseClasses} bg-white border-gray-300 hover:border-blue-500`;
   };
 
-  // --- GIAO DIỆN ---
+  // --- Component con để render một khối câu hỏi Q16-17 ---
+  const QuestionBlock: React.FC<{
+    question: Question;
+    questionKey: string;
+    selectedOption: AnswerOption | null;
+    isBlockChecked: boolean;
+    onSelect: (key: string, option: AnswerOption) => void;
+  }> = ({
+    question,
+    questionKey,
+    selectedOption,
+    isBlockChecked,
+    onSelect,
+  }) => (
+    <div className="mb-6">
+      <p className="text-lg font-semibold mb-3 text-black">{question.question}</p>
+      <div className="space-y-3">
+        {question.options.map((opt) => (
+          <button
+            key={opt.text}
+            onClick={() => onSelect(questionKey, opt)}
+            disabled={isBlockChecked}
+            className={getButtonClasses(opt, selectedOption, isBlockChecked)}
+          >
+            {opt.text}
+          </button>
+        ))}
+      </div>
+      {isBlockChecked && (
+        <div className="mt-3 p-3 bg-gray-50 border rounded-lg text-black text-sm">
+          <strong>Explanation:</strong> {question.explanation}
+        </div>
+      )}
+    </div>
+  );
+
+  // --- GIAO DIỆN CHÍNH ---
   return (
     <div className="min-h-screen font-sans text-black flex flex-col items-center justify-center p-4">
       <main className="w-full max-w-2xl mx-auto">
@@ -2466,15 +3884,16 @@ export default function App() {
         {/* --- TAB CHỦ ĐỀ --- */}
         <div className="flex justify-center gap-2 mb-6 flex-wrap">
           {[
-            { id: 1, name: "Chủ đề thời gian" },
-            { id: 2, name: "Chủ đề về số, giá tiền" },
-            { id: 3, name: "Chủ đề về địa điểm" },
-            { id: 4.0, name: "Chủ đề về hành động" }, // Sửa lỗi nhỏ: 4 -> 4.0
-            { id: 5, name: "Chủ đề khác" },
+            { id: "topic1", name: "Chủ đề thời gian" },
+            { id: "topic2", name: "Chủ đề về số, giá tiền" },
+            { id: "topic3", name: "Chủ đề về địa điểm" },
+            { id: "topic4", name: "Chủ đề về hành động" },
+            { id: "topic5", name: "Chủ đề khác" },
+            { id: "q16-17", name: "Practice Q16-17" }, // Tab mới
           ].map((topic) => (
             <button
               key={topic.id}
-              onClick={() => handleChangeTopic(topic.id)} // Cập nhật hàm onClick
+              onClick={() => handleChangeTopic(topic.id)}
               className={`px-4 py-2 rounded-md font-semibold ${
                 activeTopic === topic.id
                   ? "bg-blue-600 text-white"
@@ -2486,11 +3905,11 @@ export default function App() {
           ))}
         </div>
 
-        {/* --- NÚT ĐIỀU HƯỚNG (MỚI) --- */}
+        {/* --- NÚT ĐIỀU HƯỚNG --- */}
         <div className="flex gap-4 mb-4">
           <button
             onClick={handlePrevious}
-            disabled={loading || manualIndex === 0 || !questionData}
+            disabled={loading || manualIndex === 0 || (!questionData && !currentSet)}
             className="flex-1 px-6 py-3 bg-gray-500 text-white font-semibold rounded-md hover:bg-gray-600 disabled:bg-gray-300 disabled:cursor-not-allowed"
           >
             Previous
@@ -2499,36 +3918,39 @@ export default function App() {
             onClick={handleNextOrStart}
             disabled={
               loading ||
-              (questionData && manualIndex === currentQuestions.length - 1)
+              ((questionData || currentSet) && manualIndex === currentDataSet.length - 1)
             }
             className="flex-1 px-6 py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 disabled:bg-blue-300 disabled:cursor-not-allowed"
           >
             <IconSparkles className="w-5 h-5 inline-block mr-2" />
             {loading
               ? "Loading..."
-              : questionData
-              ? manualIndex === currentQuestions.length - 1
+              : questionData || currentSet
+              ? manualIndex === currentDataSet.length - 1
                 ? "End of Topic"
-                : "Next Question"
+                : "Next"
               : "Start Practice"}
           </button>
         </div>
 
-        {/* --- NỘI DUNG CÂU HỎI --- */}
+        {/* --- NỘI DUNG CÂU HỎI (DYNAMIC) --- */}
         <div className="bg-white p-6 rounded-lg shadow min-h-[300px]">
           {loading && <Spinner />}
 
-          {!loading && !questionData && (
-             <div className="flex items-center justify-center h-full text-gray-500">
-                <p>Please "Start Practice" to begin.</p>
-             </div>
+          {/* --- Trạng thái chờ --- */}
+          {!loading && !questionData && !currentSet && (
+            <div className="flex items-center justify-center h-full text-gray-500">
+              <p>Please "Start Practice" to begin.</p>
+            </div>
           )}
 
-          {questionData && !loading && (
+          {/* --- Giao diện Câu hỏi Đơn --- */}
+          {!loading && isMultiQuestionMode === false && questionData && (
             <div>
               <p className="text-xl font-bold mb-4 text-black">
-                {/* Thêm số thứ tự câu hỏi */}
-                {`Câu ${manualIndex + 1}/${currentQuestions.length}: ${questionData.question}`}
+                {`Câu ${manualIndex + 1}/${currentDataSet.length}: ${
+                  questionData.question
+                }`}
               </p>
               <div className="space-y-3">
                 {shuffledOptions.map((opt) => (
@@ -2536,7 +3958,11 @@ export default function App() {
                     key={opt.text}
                     onClick={() => handleSelectAnswer(opt)}
                     disabled={isAnswerChecked}
-                    className={getButtonClasses(opt)}
+                    className={getButtonClasses(
+                      opt,
+                      selectedAnswer,
+                      isAnswerChecked
+                    )}
                   >
                     {opt.text}
                   </button>
@@ -2558,6 +3984,73 @@ export default function App() {
               )}
             </div>
           )}
+
+          {/* --- Giao diện Q16-17 --- */}
+          {!loading && isMultiQuestionMode === true && currentSet && (
+             <div>
+              <h2 className="text-xl font-bold mb-4 text-black">
+                {`Đề ${manualIndex + 1}/${currentDataSet.length}: ${currentSet.topic}`}
+              </h2>
+              
+              {/* (Tùy chọn) Thêm trình phát âm thanh */}
+              {currentSet.audioSrc && (
+                <audio controls className="w-full mb-4">
+                  <source src={currentSet.audioSrc} type="audio/mpeg" />
+                  Your browser does not support the audio element.
+                </audio>
+              )}
+
+              {/* Nhóm 16 */}
+              <div className="p-4 border border-blue-200 rounded-lg mb-4">
+                <h3 className="text-lg font-bold text-blue-700 mb-3">Question 16</h3>
+                <QuestionBlock
+                  question={currentSet.questionGroup16.question16_1}
+                  questionKey="q16_1"
+                  selectedOption={multiSelectedAnswers["q16_1"]}
+                  isBlockChecked={isMultiAnswerChecked}
+                  onSelect={handleSelectMultiAnswer}
+                />
+                <QuestionBlock
+                  question={currentSet.questionGroup16.question16_2}
+                  questionKey="q16_2"
+                  selectedOption={multiSelectedAnswers["q16_2"]}
+                  isBlockChecked={isMultiAnswerChecked}
+                  onSelect={handleSelectMultiAnswer}
+                />
+              </div>
+
+              {/* Nhóm 17 */}
+              <div className="p-4 border border-indigo-200 rounded-lg mb-4">
+                 <h3 className="text-lg font-bold text-indigo-700 mb-3">Question 17</h3>
+                 <QuestionBlock
+                  question={currentSet.questionGroup17.question17_1}
+                  questionKey="q17_1"
+                  selectedOption={multiSelectedAnswers["q17_1"]}
+                  isBlockChecked={isMultiAnswerChecked}
+                  onSelect={handleSelectMultiAnswer}
+                />
+                <QuestionBlock
+                  question={currentSet.questionGroup17.question17_2}
+                  questionKey="q17_2"
+                  selectedOption={multiSelectedAnswers["q17_2"]}
+                  isBlockChecked={isMultiAnswerChecked}
+                  onSelect={handleSelectMultiAnswer}
+                />
+              </div>
+
+              {/* Nút Check cho Q16-17 */}
+              {!isMultiAnswerChecked && (
+                <button
+                  onClick={handleCheckMultiAnswer}
+                  disabled={Object.keys(multiSelectedAnswers).length < 4} // Phải chọn đủ 4 đáp án
+                  className="w-full mt-5 bg-green-600 text-white py-2 rounded-md hover:bg-green-700 disabled:bg-green-300 disabled:cursor-not-allowed"
+                >
+                  Check All Answers
+                </button>
+              )}
+             </div>
+          )}
+
         </div>
       </main>
     </div>
