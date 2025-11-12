@@ -2331,1343 +2331,695 @@ export default function App() {
   const topicQ16_17: MultiQuestionSet[] = [
   {
     id: "de-1",
-    topic: "",
+    topic: "Đề 1: 2 famous writers (Phiên bản 1 & 2)",
     // audioSrc: "/audio/de-1.mp3", // (Tùy chọn)
     
     questionGroup16: {
       question16_1: {
-        question: "2 famous writer",
+        question: "2 famous writers (Phiên bản 1)",
         options: [
-          { text: "", isCorrect: false },
+          { text: "They wrote in a very similar style.", isCorrect: false },
           { text: "They have both been overlooked by academics.", isCorrect: true },
-          { text: "", isCorrect: false },
+          { text: "Their books were not popular.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: WRITERS – overlooked – not always easily identified. (Cả hai đều bị các học giả bỏ qua.)"
       },
       question16_2: {
-        question: "2 famous writer",
+        question: "2 famous writers (Phiên bản 1)",
         options: [
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "They were only famous after they died.", isCorrect: false },
+          { text: "Their work is easy to understand.", isCorrect: false },
           { text: "The meaning of their work is not always easily identified", isCorrect: true },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: WRITERS – overlooked – not always easily identified. (Ý nghĩa công việc của họ không phải lúc nào cũng dễ dàng được xác định.)"
       }
     },
     questionGroup17: {
       question17_1: {
-        question: "2 famous writer phiên bản 2",
+        question: "2 famous writers (Phiên bản 2)",
         options: [
           { text: "They both make references to each other in their work", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "They were best friends.", isCorrect: false },
+          { text: "They never met each other.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: WRITERS – both – always easily. (Cả hai đều đề cập đến nhau trong tác phẩm của họ.)"
       },
       question17_2: {
-        question: "2 famous writer phiên bản 2",
+        question: "2 famous writers (Phiên bản 2)",
         options: [
           { text: "The meaning of their work is not always easily identified", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "Their work is only for academics.", isCorrect: false },
+          { text: "The work is simple and clear.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: WRITERS – both – always easily. (Ý nghĩa công việc của họ không phải lúc nào cũng dễ dàng được xác định.)"
       }
     }
   },
   {
     id: "de-2",
-    topic: "",
+    topic: "Đề 2 & 3: Guidebook & Writer's block",
     // audioSrc: "/audio/de-2.mp3", // (Tùy chọn)
     
     questionGroup16: {
       question16_1: {
-        question: "A new guidebook",
+        question: "Đề 2: A new guidebook",
         options: [
           { text: "It creates an adventure.", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "It is very boring.", isCorrect: false },
+          { text: "It is a normal travel book.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: GUIDE – creates – only suitable. (Nó tạo ra một cuộc phiêu lưu.)"
       },
       question16_2: {
-        question: "A new guidebook",
+        question: "Đề 2: A new guidebook",
         options: [
-          { text: "", isCorrect: false },
+          { text: "It is suitable for everyone.", isCorrect: false },
           { text: "It is only suitable for particular generations", isCorrect: true },
-          { text: "", isCorrect: false },
+          { text: "It is only for old people.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: GUIDE – creates – only suitable. (Nó chỉ phù hợp với các thế hệ cụ thể.)"
       }
     },
     questionGroup17: {
       question17_1: {
-        question: "Writer's block",
+        question: "Đề 3: Writer's block",
         options: [
           { text: "Create dedicated periods for writing", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "Wait for inspiration.", isCorrect: false },
+          { text: "Stop writing for a while.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: WRITER'S BLOCK – create – seek. (Tạo ra các khoảng thời gian dành riêng cho việc viết.)"
       },
       question17_2: {
-        question: "Writer's block",
+        question: "Đề 3: Writer's block",
         options: [
           { text: "Refuse to seek advice of others", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "Ask many people for help.", isCorrect: false },
+          { text: "Only ask close friends.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: WRITER'S BLOCK – create – seek. (Từ chối tìm kiếm lời khuyên của người khác.)"
       }
     }
   },
-  // Bắt đầu template cho de-3 đến de-29
   {
     id: "de-3",
-    topic: "",
+    topic: "Đề 4 & 5: New Novel & Science Book",
     // audioSrc: "/audio/de-3.mp3", // (Tùy chọn)
     
     questionGroup16: {
       question16_1: {
-        question: "A new novel of a famous writer",
+        question: "Đề 4: A new novel of a famous writer",
         options: [
           { text: "It is quite different from his earlier works", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "It is exactly the same as his last book.", isCorrect: false },
+          { text: "It is not as good as his earlier works.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: NEW NOVEL OF A FAMOUS WRITER – quite – should listen. (Nó khá khác biệt so với các tác phẩm trước đây của ông.)"
       },
       question16_2: {
-        question: "A new novel of a famous writer",
+        question: "Đề 4: A new novel of a famous writer",
         options: [
-          { text: "", isCorrect: false },
+          { text: "He ignores all critics.", isCorrect: false },
           { text: "He should listen to critics before writing his next work", isCorrect: true },
-          { text: "", isCorrect: false },
+          { text: "He only listens to his fans.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: NEW NOVEL OF A FAMOUS WRITER – quite – should listen. (Ông nên lắng nghe các nhà phê bình trước khi viết tác phẩm tiếp theo.)"
       }
     },
     questionGroup17: {
       question17_1: {
-        question: "A new book about science",
+        question: "Đề 5: A new book about science",
         options: [
           { text: "It is exciting to read", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "It is very difficult to understand.", isCorrect: false },
+          { text: "It is only for scientists.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: A NEW BOOK ABOUT SCIENCE – exciting – written for general audience. (Nó thú vị để đọc.)"
       },
       question17_2: {
-        question: "A new book about science",
+        question: "Đề 5: A new book about science",
         options: [
           { text: "It has been written for a general audience", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "It is written for children.", isCorrect: false },
+          { text: "It is an academic textbook.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: A NEW BOOK ABOUT SCIENCE – exciting – written for general audience. (Nó được viết cho khán giả đại chúng.)"
       }
     }
   },
   {
     id: "de-4",
-    topic: "",
+    topic: "Đề 6 & 7: Script Production & New Series",
     // audioSrc: "/audio/de-4.mp3", // (Tùy chọn)
     
     questionGroup16: {
       question16_1: {
-        question: "Script production",
+        question: "Đề 6: Script production",
         options: [
           { text: "The characters' background are not adequately explored", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "The characters are very interesting.", isCorrect: false },
+          { text: "The script is perfect.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: SCRIPT – character's – negatively influencing. (Lý lịch của các nhân vật chưa được khám phá đầy đủ.)"
       },
       question16_2: {
-        question: "Script production",
+        question: "Đề 6: Script production",
         options: [
-          { text: "", isCorrect: false },
+          { text: "The new demands are helping production.", isCorrect: false },
           { text: "The new industry demands are negatively influencing script production", isCorrect: true },
-          { text: "", isCorrect: false },
+          { text: "The industry demands have not changed.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: SCRIPT – character's – negatively influencing. (Các yêu cầu mới của ngành đang ảnh hưởng tiêu cực đến việc sản xuất kịch bản.)"
       }
     },
     questionGroup17: {
       question17_1: {
-        question: "The script of the new series",
+        question: "Đề 7: The script of the new series",
         options: [
           { text: "The dialogues seem unrealistic", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "The dialogues are very clever.", isCorrect: false },
+          { text: "The dialogues are borrowed from other series.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: SCRIPT OF THE NEW SERIES – dialogues – negatively influencing. (Các đoạn hội thoại có vẻ không thực tế.)"
       },
       question17_2: {
-        question: "The script of the new series",
+        question: "Đề 7: The script of the new series",
         options: [
           { text: "The new industry demand is negatively influencing script production", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "The industry demand helps improve the script.", isCorrect: false },
+          { text: "The industry demand is not important.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: SCRIPT OF THE NEW SERIES – dialogues – negatively influencing. (Yêu cầu mới của ngành đang ảnh hưởng tiêu cực đến việc sản xuất kịch bản.)"
       }
     }
   },
   {
     id: "de-5",
-    topic: "",
+    topic: "Đề 8 & 9: University & Sports",
     // audioSrc: "/audio/de-5.mp3", // (Tùy chọn)
     
     questionGroup16: {
       question16_1: {
-        question: "Life after university",
+        question: "Đề 8: Life after university",
         options: [
           { text: "They are likely to be more flexible and open-minded", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "They are becoming more stubborn.", isCorrect: false },
+          { text: "They find it hard to get a job.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: AFTER UNIVERSITY – flexible – more competitive. (Họ có thể sẽ linh hoạt và cởi mở hơn.)"
       },
       question16_2: {
-        question: "Life after university",
+        question: "Đề 8: Life after university",
         options: [
-          { text: "", isCorrect: false },
           { text: "They are becoming more competitive", isCorrect: true },
-          { text: "", isCorrect: false },
+          { text: "They are less competitive.", isCorrect: false },
+          { text: "They stop learning new things.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: AFTER UNIVERSITY – flexible – more competitive. (Họ đang trở nên cạnh tranh hơn.)"
       }
     },
     questionGroup17: {
       question17_1: {
-        question: "Nói về sports ở trường học",
+        question: "Đề 9: Nói về sports ở trường học",
         options: [
           { text: "They help ... (health promotion)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "They are a waste of time.", isCorrect: false },
+          { text: "They are only for fun.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: SPORTS – help – balance. (Chúng giúp... (thúc đẩy sức khỏe).)"
       },
       question17_2: {
-        question: "Nói về sports ở trường học",
+        question: "Đề 9: Nói về sports ở trường học",
         options: [
           { text: "It provides balance", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "It makes students tired.", isCorrect: false },
+          { text: "It is not very important.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: SPORTS – help – balance. (Nó cung cấp sự cân bằng.)"
       }
     }
   },
   {
     id: "de-6",
-    topic: "",
+    topic: "Đề 10 & 11: Sport & Musician's Life",
     // audioSrc: "/audio/de-6.mp3", // (Tùy chọn)
     
     questionGroup16: {
       question16_1: {
-        question: "Sport – thể thao",
+        question: "Đề 10: Sport – thể thao",
         options: [
           { text: "They can cause harmful effects", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "They are always good for health.", isCorrect: false },
+          { text: "They are only for young people.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: SPORT – harmful – balance. (Chúng có thể gây ra tác dụng có hại.)"
       },
       question16_2: {
-        question: "Sport – thể thao",
+        question: "Đề 10: Sport – thể thao",
         options: [
-          { text: "", isCorrect: false },
-          { text: "Provides them with a balance in their lives", isCorrect: true },
-          { text: "", isCorrect: false },
+          { text: "Provides them with a balance in their lives.", isCorrect: true },
+          { text: "Wastes a lot of money.", isCorrect: false },
+          { text: "Is not necessary for adults.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: SPORT – harmful – balance. (Cung cấp cho họ sự cân bằng trong cuộc sống.)"
       }
     },
-
-
-    //========================================================  ĐẾN ĐÂY RỒIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     questionGroup17: {
       question17_1: {
-        question: "A musician's life",
+        question: "Đề 11: A musician's life",
         options: [
           { text: "He will probably retire from singing professionally", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "He will continue singing forever.", isCorrect: false },
+          { text: "He wants to start a new band.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: MUSICIAN'S LIFE – retire – more successful. (Anh ấy có thể sẽ nghỉ hưu, không hát chuyên nghiệp nữa.)"
       },
       question17_2: {
-        question: "A musician's life",
+        question: "Đề 11: A musician's life",
         options: [
           { text: "He could have been more successful", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "He thinks he was not successful.", isCorrect: false },
+          { text: "He is the most successful musician.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: MUSICIAN'S LIFE – retire – more successful. (Anh ấy có thể đã thành công hơn.)"
       }
     }
   },
   {
     id: "de-7",
-    topic: "",
+    topic: "Đề 12 & 13: Professionalism & Work From Home",
     // audioSrc: "/audio/de-7.mp3", // (Tùy chọn)
     
     questionGroup16: {
       question16_1: {
-        question: "Professionalism at work",
+        question: "Đề 12: Professionalism at work",
         options: [
           { text: "To maintain positive attitude", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "To always be serious.", isCorrect: false },
+          { text: "To follow all rules without question.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: PROFESSIONALISM – positive – change. (Để duy trì thái độ tích cực.)"
       },
       question16_2: {
-        question: "Professionalism at work",
+        question: "Đề 12: Professionalism at work",
         options: [
-          { text: "", isCorrect: false },
           { text: "Our definition of it is changing", isCorrect: true },
-          { text: "", isCorrect: false },
+          { text: "The definition is always the same.", isCorrect: false },
+          { text: "The definition is not important.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: PROFESSIONALISM – positive – change. (Định nghĩa của chúng ta về nó đang thay đổi.)"
       }
     },
     questionGroup17: {
       question17_1: {
-        question: "Nói về work from home",
+        question: "Đề 13: Nói về work from home",
         options: [
           { text: "It wasn't as good as she had expected", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "It was better than she expected.", isCorrect: false },
+          { text: "It was exactly as she expected.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: WORK FROM HOME – wasn't as good as – depends. (Nó không tốt như cô ấy mong đợi.)"
       },
       question17_2: {
-        question: "Nói về work from home",
+        question: "Đề 13: Nói về work from home",
         options: [
           { text: "It depends on your situation and personality", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "It is good for everyone.", isCorrect: false },
+          { text: "It is bad for everyone.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: WORK FROM HOME – wasn't as good as – depends. (Nó phụ thuộc vào hoàn cảnh và tính cách của bạn.)"
       }
     }
   },
   {
     id: "de-8",
-    topic: "",
+    topic: "Đề 14 & 15: TV series & Advertising",
     // audioSrc: "/audio/de-8.mp3", // (Tùy chọn)
     
     questionGroup16: {
       question16_1: {
-        question: "TV series",
+        question: "Đề 14: TV series",
         options: [
           { text: "It caught the audience's attention from the start", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "It was boring at the beginning.", isCorrect: false },
+          { text: "Only the ending was good.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: TV SERIES – attention – audience's. (Nó đã thu hút sự chú ý của khán giả ngay từ đầu.)"
       },
       question16_2: {
-        question: "TV series",
+        question: "Đề 14: TV series",
         options: [
-          { text: "", isCorrect: false },
-          { text: "It helps to reach new customers ", isCorrect: true },
-          { text: "", isCorrect: false },
+          { text: "It was too long.", isCorrect: false },
+          { text: "It had a surprising ending.", isCorrect: true }, // Giả định dựa trên logic chung, ảnh không có
+          { text: "It was very predictable.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: TV SERIES – attention – audience's. (Không có thông tin cho câu 2, thêm câu nhiễu)"
       }
     },
     questionGroup17: {
       question17_1: {
-        question: "Advertising and sponsoring",
+        question: "Đề 15: Advertising and sponsoring",
         options: [
           { text: "Series are damaged by overexposure", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "Overexposure helps the series.", isCorrect: false },
+          { text: "Advertising is not effective.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: ADVERTISING – overexposure – negative publicity. (Các loạt phim bị hư hỏng do tiếp xúc quá nhiều.)"
       },
       question17_2: {
-        question: "Advertising and sponsoring",
+        question: "Đề 15: Advertising and sponsoring",
         options: [
           { text: "They can generate negative publicity for the sport", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "They always generate positive publicity.", isCorrect: false },
+          { text: "They do not affect the sport's publicity.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: ADVERTISING – overexposure – negative publicity. (Chúng có thể tạo ra dư luận tiêu cực cho môn thể thao.)"
       }
     }
   },
   {
     id: "de-9",
-    topic: "",
+    topic: "Đề 16 & 17: CCTV & Making plans",
     // audioSrc: "/audio/de-9.mp3", // (Tùy chọn)
     
     questionGroup16: {
       question16_1: {
-        question: "Topic cctv/ security cameras",
+        question: "Đề 16: Topic cctv/ security cameras",
         options: [
           { text: "Employees probably worry unnecessarily", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "Employees feel safe.", isCorrect: false },
+          { text: "Employees do not notice them.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: CCTV/ SECURITY CAMERAS – unnecessarily – reassured. (Nhân viên có thể lo lắng một cách không cần thiết.)"
       },
       question16_2: {
-        question: "Topic cctv/ security cameras",
+        question: "Đề 16: Topic cctv/ security cameras",
         options: [
-          { text: "", isCorrect: false },
           { text: "People should feel reassured about their presence", isCorrect: true },
-          { text: "", isCorrect: false },
+          { text: "People should be worried.", isCorrect: false },
+          { text: "People should ignore them.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: CCTV/ SECURITY CAMERAS – unnecessarily – reassured. (Mọi người nên cảm thấy yên tâm về sự hiện diện của chúng.)"
       }
     },
     questionGroup17: {
       question17_1: {
-        question: "Making plans",
+        question: "Đề 17: Making plans",
         options: [
           { text: "It allows you to be more flexible.", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "It makes you rigid.", isCorrect: false },
+          { text: "It is a waste of time.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: MAKING PLANS – flexible – mistakes. (Nó cho phép bạn linh hoạt hơn.)"
       },
       question17_2: {
-        question: "Making plans",
+        question: "Đề 17: Making plans",
         options: [
-          { text: "It can prevent you from making mistakes", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "It can prevent you from making mistakes.", isCorrect: true },
+          { text: "It causes more mistakes.", isCorrect: false },
+          { text: "It does not affect mistakes.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: MAKING PLANS – flexible – mistakes. (Nó có thể ngăn bạn mắc sai lầm.)"
       }
     }
   },
   {
     id: "de-10",
-    topic: "",
+    topic: "Đề 18 & 19: Promotion campaign & Transport plan",
     // audioSrc: "/audio/de-10.mp3", // (Tùy chọn)
     
     questionGroup16: {
       question16_1: {
-        question: "A promotion campaign for a product",
+        question: "Đề 18: A promotion campaign for a product",
         options: [
           { text: "They use exaggerated claims", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "They are very honest.", isCorrect: false },
+          { text: "They do not give enough information.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: PROMOTION CAMPAIGN – exaggerated – profitable. (Họ sử dụng các tuyên bố phóng đại.)"
       },
       question16_2: {
-        question: "A promotion campaign for a product",
+        question: "Đề 18: A promotion campaign for a product",
         options: [
-          { text: "", isCorrect: false },
-          { text: "It costs too much to make to be profitable", isCorrect: true },
-          { text: "", isCorrect: false },
+          { text: "It costs too much to make to be profitable.", isCorrect: true },
+          { text: "It is very cheap to make.", isCorrect: false },
+          { text: "The cost is reasonable.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: PROMOTION CAMPAIGN – exaggerated – profitable. (Nó tốn quá nhiều chi phí để thực hiện để có lãi.)"
       }
     },
     questionGroup17: {
       question17_1: {
-        question: "New transport plan",
+        question: "Đề 19: New transport plan",
         options: [
-          { text: "It doesn't provide enough alternatives to driving", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "It doesn't provide enough alternatives to driving.", isCorrect: true },
+          { text: "It provides many alternatives.", isCorrect: false },
+          { text: "It bans driving completely.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: TRANSPORT – alternatives – resistance. (Nó không cung cấp đủ các phương án thay thế cho việc lái xe.)"
       },
       question17_2: {
-        question: "New transport plan",
+        question: "Đề 19: New transport plan",
         options: [
           { text: "It is likely to meet resistance from local communities.", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "It is popular with local communities.", isCorrect: false },
+          { text: "Local communities are not affected.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: TRANSPORT – alternatives – resistance. (Nó có khả năng vấp phải sự phản đối từ các cộng đồng địa phương.)"
       }
     }
   },
   {
     id: "de-11",
-    topic: "",
+    topic: "Đề 20 & 21: Restaurant & Financial spending",
     // audioSrc: "/audio/de-11.mp3", // (Tùy chọn)
     
     questionGroup16: {
       question16_1: {
-        question: "Nói về restaurant",
+        question: "Đề 20: Nói về restaurant",
         options: [
           { text: "The standard of service wasn't good", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "The food was bad.", isCorrect: false },
+          { text: "The price was too high.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: RESTAURANT – wasn't good – welcome. (Chất lượng dịch vụ không tốt.)"
       },
       question16_2: {
-        question: "Nói về restaurant",
+        question: "Đề 20: Nói về restaurant",
         options: [
-          { text: "", isCorrect: false },
           { text: "They need to make customers feel valued and welcome", isCorrect: true },
-          { text: "", isCorrect: false },
+          { text: "They should lower their prices.", isCorrect: false },
+          { text: "They should hire a new chef.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: RESTAURANT – wasn't good – welcome. (Họ cần làm cho khách hàng cảm thấy được trân trọng và chào đón.)"
       }
     },
     questionGroup17: {
       question17_1: {
-        question: "Managing financial spending",
+        question: "Đề 21: Managing financial spending",
         options: [
           { text: "Organizing their resources more effectively", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "Spending less money.", isCorrect: false },
+          { text: "Earning more money.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: SPENDING – organize – seek advice. (Tổ chức các nguồn lực của họ hiệu quả hơn.)"
       },
       question17_2: {
-        question: "Managing financial spending",
+        question: "Đề 21: Managing financial spending",
         options: [
           { text: "Seek advice from someone who have experience", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "Try to solve it themselves.", isCorrect: false },
+          { text: "Read a book about finance.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: SPENDING – organize – seek advice. (Tìm kiếm lời khuyên từ người có kinh nghiệm.)"
       }
     }
   },
   {
     id: "de-12",
-    topic: "",
+    topic: "Đề 22 & 23: Happiness research & Sleep",
     // audioSrc: "/audio/de-12.mp3", // (Tùy chọn)
     
     questionGroup16: {
       question16_1: {
-        question: " A research into happiness",
+        question: "Đề 22: A research into happiness",
         options: [
           { text: "It has not been accurately reported by the media", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "It was reported well by the media.", isCorrect: false },
+          { text: "The media ignored the research.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: RESEARCH INTO HAPPINESS – not accurately reported – unlikely to find. (Nó không được truyền thông đưa tin chính xác.)"
       },
       question16_2: {
-        question: " A research into happiness",
+        question: "Đề 22: A research into happiness",
         options: [
-          { text: "", isCorrect: false },
           { text: "The research is unlikely to find a conclusive answer", isCorrect: true },
-          { text: "", isCorrect: false },
+          { text: "The research found the key to happiness.", isCorrect: false },
+          { text: "The research was a waste of time.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: RESEARCH INTO HAPPINESS – not accurately reported – unlikely to find. (Nghiên cứu không có khả năng tìm ra câu trả lời cuối cùng.)"
       }
     },
     questionGroup17: {
       question17_1: {
-        question: "The importance of sleep",
+        question: "Đề 23: The importance of sleep",
         options: [
-          { text: "Blocking out noise and light is a keyof", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "Blocking out noise and light is a key", isCorrect: true },
+          { text: "Noise and light do not affect sleep.", isCorrect: false },
+          { text: "Sleeping pills are the key.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: SLEEP – key – media. (Chặn tiếng ồn và ánh sáng là một chìa khóa.)"
       },
       question17_2: {
-        question: "The importance of sleep",
+        question: "Đề 23: The importance of sleep",
         options: [
           { text: "The media overemphasizes the subject", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "The media does not talk about sleep.", isCorrect: false },
+          { text: "The media gives good advice about sleep.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: SLEEP – key – media. (Các phương tiện truyền thông quá nhấn mạnh chủ đề này.)"
       }
     }
   },
   {
     id: "de-13",
-    topic: "",
-    // audioSrc: "/audio/de-13.mp3", // (TùY chọn)
+    topic: "Đề 24 & 25: New novel",
+    // audioSrc: "/audio/de-13.mp3", // (Tùy chọn)
     
     questionGroup16: {
       question16_1: {
-        question: " Criticism of the new novel",
+        question: "Đề 24: Criticism of the new novel",
         options: [
           { text: "The characters were interesting", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "The plot was boring.", isCorrect: false },
+          { text: "The characters were flat.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: NEW NOVEL – characters – author's. (Các nhân vật thú vị.)"
       },
       question16_2: {
-        question: " Criticism of the new novel",
+        question: "Đề 24: Criticism of the new novel",
         options: [
-          { text: "", isCorrect: false },
           { text: "It will establish the author's popularity", isCorrect: true },
-          { text: "", isCorrect: false },
+          { text: "It will not be popular.", isCorrect: false },
+          { text: "It is just an average book.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: NEW NOVEL – characters – author's. (Nó sẽ thiết lập sự nổi tiếng của tác giả.)"
       }
     },
     questionGroup17: {
       question17_1: {
-        question: "New novel",
+        question: "Đề 25: New novel",
         options: [
           { text: "They are difficult to relate to", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "The characters are very relatable.", isCorrect: false },
+          { text: "The novel is easy to read.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: NEW NOVEL – difficult – lacks. (Chúng (nhân vật) rất khó để liên hệ/đồng cảm.)"
       },
       question17_2: {
-        question: "New novel",
+        question: "Đề 25: New novel",
         options: [
           { text: "It lacks originality", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "It is very original.", isCorrect: false },
+          { text: "It has a creative plot.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: NEW NOVEL – difficult – lacks. (Nó thiếu tính độc đáo.)"
       }
     }
   },
   {
     id: "de-14",
-    topic: "",
+    topic: "Đề 26 & 27: A new book & Scientist book",
     // audioSrc: "/audio/de-14.mp3", // (Tùy chọn)
     
     questionGroup16: {
       question16_1: {
-        question: "A new book",
+        question: "Đề 26: A new book",
         options: [
           { text: "The plot was very strong", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "The plot was weak.", isCorrect: false },
+          { text: "The plot was confusing.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: NEW BOOK/NOVEL – very strong – very similar. (Cốt truyện rất mạnh mẽ.)"
       },
       question16_2: {
-        question: "A new book",
+        question: "Đề 26: A new book",
         options: [
-          { text: "", isCorrect: false },
           { text: "It is very similar to the author's other books", isCorrect: true },
-          { text: "", isCorrect: false },
+          { text: "It is very different from other books.", isCorrect: false },
+          { text: "It is a completely new style.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: NEW BOOK/NOVEL – very strong – very similar. (Nó rất giống với những cuốn sách khác của tác giả.)"
       }
     },
     questionGroup17: {
       question17_1: {
-        question: "A book about a life of a scientist",
+        question: "Đề 27: A book about a life of a scientist",
         options: [
           { text: "It uses simple language to describe complex ideas", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "It uses very complex language.", isCorrect: false },
+          { text: "It is difficult for non-scientists to read.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: A BOOK ABOUT A LIFE OF A SCIENTIST – simple language – similar. (Nó sử dụng ngôn ngữ đơn giản để mô tả các ý tưởng phức tạp.)"
       },
       question17_2: {
-        question: "A book about a life of a scientist",
+        question: "Đề 27: A book about a life of a scientist",
         options: [
           { text: "It is similar to the previous book about the scientist", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "It is very different from the previous book.", isCorrect: false },
+          { text: "This is the first book about the scientist.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: A BOOK ABOUT A LIFE OF A SCIENTIST – simple language – similar. (Nó tương tự như cuốn sách trước đó về nhà khoa học.)"
       }
     }
   },
   {
     id: "de-15",
-    topic: "",
+    topic: "Đề 28 & 29: Break from studying & TV series",
     // audioSrc: "/audio/de-15.mp3", // (Tùy chọn)
     
     questionGroup16: {
       question16_1: {
-        question: "A break from studying",
+        question: "Đề 28: A break from studying",
         options: [
           { text: "He wasn't ready to start higher education", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "He was ready for more studying.", isCorrect: false },
+          { text: "He was forced to take a break.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: BREAK – wasn't ready – more independent. (Anh ấy chưa sẵn sàng để bắt đầu học cao hơn.)"
       },
       question16_2: {
-        question: "A break from studying",
+        question: "Đề 28: A break from studying",
         options: [
-          { text: "", isCorrect: false },
           { text: "How to be more independent", isCorrect: true },
-          { text: "", isCorrect: false },
+          { text: "How to study better.", isCorrect: false },
+          { text: "How to make money.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: BREAK – wasn't ready – more independent. (Làm thế nào để độc lập hơn.)"
       }
     },
     questionGroup17: {
       question17_1: {
-        question: "Television series",
+        question: "Đề 29: Television series",
         options: [
           { text: "It has the consistent quality throughout", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "The quality was inconsistent.", isCorrect: false },
+          { text: "The first season was the best.", isCorrect: false },
         ],
-        explanation: ""
+        explanation: "Bản rút gọn: TELEVISION SERIES – consistent – are made. (Nó có chất lượng nhất quán trong suốt.)"
       },
       question17_2: {
-        question: "Television series",
+        question: "Đề 29: Television series",
         options: [
           { text: "Viewer habits influence the way that series are made", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
+          { text: "Viewer habits do not matter.", isCorrect: false },
+          { text: "The creators decide everything.", isCorrect: false },
         ],
-        explanation: ""
-      }
-    }
-  },
-  {
-    id: "de-16",
-    topic: "",
-    // audioSrc: "/audio/de-16.mp3", // (Tùy chọn)
-    
-    questionGroup16: {
-      question16_1: {
-        question: "(Chủ đề 1 của Đề 16)",
-        options: [
-          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question16_2: {
-        question: "(Chủ đề 1 của Đề 16)",
-        options: [
-          { text: "", isCorrect: false },
-          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    },
-    questionGroup17: {
-      question17_1: {
-        question: "(Chủ đề 2 của Đề 16)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question17_2: {
-        question: "(Chủ đề 2 của Đề 16)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    }
-  },
-  {
-    id: "de-17",
-    topic: "",
-    // audioSrc: "/audio/de-17.mp3", // (Tùy chọn)
-    
-    questionGroup16: {
-      question16_1: {
-        question: "(Chủ đề 1 của Đề 17)",
-        options: [
-          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question16_2: {
-        question: "(Chủ đề 1 của Đề 17)",
-        options: [
-          { text: "", isCorrect: false },
-          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    },
-    questionGroup17: {
-      question17_1: {
-        question: "(Chủ đề 2 của Đề 17)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question17_2: {
-        question: "(Chủ đề 2 của Đề 17)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    }
-  },
-  {
-    id: "de-18",
-    topic: "",
-    // audioSrc: "/audio/de-18.mp3", // (Tùy chọn)
-    
-    questionGroup16: {
-      question16_1: {
-        question: "(Chủ đề 1 của Đề 18)",
-        options: [
-          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question16_2: {
-        question: "(Chủ đề 1 của Đề 18)",
-        options: [
-          { text: "", isCorrect: false },
-          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    },
-    questionGroup17: {
-      question17_1: {
-        question: "(Chủ đề 2 của Đề 18)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question17_2: {
-        question: "(Chủ đề 2 của Đề 18)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    }
-  },
-  {
-    id: "de-19",
-    topic: "",
-    // audioSrc: "/audio/de-19.mp3", // (Tùy chọn)
-    
-    questionGroup16: {
-      question16_1: {
-        question: "(Chủ đề 1 của Đề 19)",
-        options: [
-          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question16_2: {
-        question: "(Chủ đề 1 của Đề 19)",
-        options: [
-          { text: "", isCorrect: false },
-          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    },
-    questionGroup17: {
-      question17_1: {
-        question: "(Chủ đề 2 của Đề 19)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question17_2: {
-        question: "(Chủ đề 2 của Đề 19)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    }
-  },
-  {
-    id: "de-20",
-    topic: "",
-    // audioSrc: "/audio/de-20.mp3", // (Tùy chọn)
-    
-    questionGroup16: {
-      question16_1: {
-        question: "(Chủ đề 1 của Đề 20)",
-        options: [
-          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question16_2: {
-        question: "(Chủ đề 1 của Đề 20)",
-        options: [
-          { text: "", isCorrect: false },
-          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    },
-    questionGroup17: {
-      question17_1: {
-        question: "(Chủ đề 2 của Đề 20)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question17_2: {
-        question: "(Chủ đề 2 của Đề 20)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    }
-  },
-  {
-    id: "de-21",
-    topic: "",
-    // audioSrc: "/audio/de-21.mp3", // (Tùy chọn)
-    
-    questionGroup16: {
-      question16_1: {
-        question: "(Chủ đề 1 của Đề 21)",
-        options: [
-          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question16_2: {
-        question: "(Chủ đề 1 của Đề 21)",
-        options: [
-          { text: "", isCorrect: false },
-          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    },
-    questionGroup17: {
-      question17_1: {
-        question: "(Chủ đề 2 của Đề 21)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question17_2: {
-        question: "(Chủ đề 2 của Đề 21)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    }
-  },
-  {
-    id: "de-22",
-    topic: "",
-    // audioSrc: "/audio/de-22.mp3", // (Tùy chọn)
-    
-    questionGroup16: {
-      question16_1: {
-        question: "(Chủ đề 1 của Đề 22)",
-        options: [
-          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question16_2: {
-        question: "(Chủ đề 1 của Đề 22)",
-        options: [
-          { text: "", isCorrect: false },
-          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    },
-    questionGroup17: {
-      question17_1: {
-        question: "(Chủ đề 2 của Đề 22)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question17_2: {
-        question: "(Chủ đề 2 của Đề 22)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    }
-  },
-  {
-    id: "de-23",
-    topic: "",
-    // audioSrc: "/audio/de-23.mp3", // (Tùy chọn)
-    
-    questionGroup16: {
-      question16_1: {
-        question: "(Chủ đề 1 của Đề 23)",
-        options: [
-          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question16_2: {
-        question: "(Chủ đề 1 của Đề 23)",
-        options: [
-          { text: "", isCorrect: false },
-          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    },
-    questionGroup17: {
-      question17_1: {
-        question: "(Chủ đề 2 của Đề 23)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question17_2: {
-        question: "(Chủ đề 2 của Đề 23)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    }
-  },
-  {
-    id: "de-24",
-    topic: "",
-    // audioSrc: "/audio/de-24.mp3", // (Tùy chọn)
-    
-    questionGroup16: {
-      question16_1: {
-        question: "(Chủ đề 1 của Đề 24)",
-        options: [
-          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question16_2: {
-        question: "(Chủ đề 1 của Đề 24)",
-        options: [
-          { text: "", isCorrect: false },
-          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    },
-    questionGroup17: {
-      question17_1: {
-        question: "(Chủ đề 2 của Đề 24)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question17_2: {
-        question: "(Chủ đề 2 của Đề 24)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    }
-  },
-  {
-    id: "de-25",
-    topic: "",
-    // audioSrc: "/audio/de-25.mp3", // (Tùy chọn)
-    
-    questionGroup16: {
-      question16_1: {
-        question: "(Chủ đề 1 của Đề 25)",
-        options: [
-          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question16_2: {
-        question: "(Chủ đề 1 của Đề 25)",
-        options: [
-          { text: "", isCorrect: false },
-          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    },
-    questionGroup17: {
-      question17_1: {
-        question: "(Chủ đề 2 của Đề 25)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question17_2: {
-        question: "(Chủ đề 2 của Đề 25)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    }
-  },
-  {
-    id: "de-26",
-    topic: "",
-    // audioSrc: "/audio/de-26.mp3", // (Tùy chọn)
-    
-    questionGroup16: {
-      question16_1: {
-        question: "(Chủ đề 1 của Đề 26)",
-        options: [
-          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question16_2: {
-        question: "(Chủ đề 1 của Đề 26)",
-        options: [
-          { text: "", isCorrect: false },
-          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    },
-    questionGroup17: {
-      question17_1: {
-        question: "(Chủ đề 2 của Đề 26)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question17_2: {
-        question: "(Chủ đề 2 của Đề 26)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    }
-  },
-  {
-    id: "de-27",
-    topic: "",
-    // audioSrc: "/audio/de-27.mp3", // (Tùy chọn)
-    
-    questionGroup16: {
-      question16_1: {
-        question: "(Chủ đề 1 của Đề 27)",
-        options: [
-          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question16_2: {
-        question: "(Chủ đề 1 của Đề 27)",
-        options: [
-          { text: "", isCorrect: false },
-          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    },
-    questionGroup17: {
-      question17_1: {
-        question: "(Chủ đề 2 của Đề 27)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question17_2: {
-        question: "(Chủ đề 2 của Đề 27)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    }
-  },
-  {
-    id: "de-28",
-    topic: "",
-    // audioSrc: "/audio/de-28.mp3", // (Tùy chọn)
-    
-    questionGroup16: {
-      question16_1: {
-        question: "(Chủ đề 1 của Đề 28)",
-        options: [
-          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question16_2: {
-        question: "(Chủ đề 1 của Đề 28)",
-        options: [
-          { text: "", isCorrect: false },
-          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    },
-    questionGroup17: {
-      question17_1: {
-        question: "(Chủ đề 2 của Đề 28)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question17_2: {
-        question: "(Chủ đề 2 của Đề 28)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    }
-  },
-  {
-    id: "de-29",
-    topic: "",
-    // audioSrc: "/audio/de-29.mp3", // (Tùy chọn)
-    
-    questionGroup16: {
-      question16_1: {
-        question: "(Chủ đề 1 của Đề 29)",
-        options: [
-          { text: "(Nội dung đáp án đúng 16.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question16_2: {
-        question: "(Chủ đề 1 của Đề 29)",
-        options: [
-          { text: "", isCorrect: false },
-          { text: "(Nội dung đáp án đúng 16.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      }
-    },
-    questionGroup17: {
-      question17_1: {
-        question: "(Chủ đề 2 của Đề 29)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.1)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
-      },
-      question17_2: {
-        question: "(Chủ đề 2 của Đề 29)",
-        options: [
-          { text: "(Nội dung đáp án đúng 17.2)", isCorrect: true },
-          { text: "", isCorrect: false },
-          { text: "", isCorrect: false },
-        ],
-        explanation: ""
+        explanation: "Bản rút gọn: TELEVISION SERIES – consistent – are made. (Thói quen của người xem ảnh hưởng đến cách mà các loạt phim được thực hiện.)"
       }
     }
   }
-];
+]
 
   const topics: Record<string, Question[] | MultiQuestionSet[]> = {
     topic1: topic1,
